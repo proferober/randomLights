@@ -1,0 +1,36 @@
+from hub import light_matrix
+import random
+import time
+class pixels():
+    def __init__(self):
+        self.variacion=random.randint(1,2)
+        self.brillo=random.randint(10,90)
+        self.cambio=1
+    def pixelShow(self,x,y):
+        self.x=x
+        self.y=y
+        light_matrix.set_pixel(self.x, self.y, self.brillo)
+
+    def cambiarBrillo(self):
+        self.brillo += self.cambio * self.variacion
+        self.variacion = random.randint(1, 5)
+        if self.brillo>100:
+            self.brillo=100
+            self.cambio=-1
+        if self.brillo<0:
+            self.brillo=0
+            self.cambio=1
+
+pixeles=[]
+for i in range(26):
+        nuevoPixel=pixels()
+        pixeles.append(nuevoPixel)
+
+while True:
+
+    for i in range(5):
+        for j in range(5):
+            pixeles[i*5+j].pixelShow(i, j)
+            pixeles[i*5+j].cambiarBrillo()
+            
+    time.sleep(0.01)
